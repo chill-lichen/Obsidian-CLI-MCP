@@ -1,0 +1,45 @@
+{
+  "manifest_version": "0.3",
+  "name": "obsidian-cli",
+  "display_name": "Obsidian CLI Bridge",
+  "version": "1.0.1",
+  "description": "Bridges Claude to the official Obsidian CLI: run commands, Dataview queries via eval, plugin APIs, graph view, and more against the running Obsidian app.",
+  "author": {
+    "name": "chill-lichen"
+  },
+  "homepage": "https://github.com/chill-lichen/obsidian-cli-mcp",
+  "license": "BSD-3-Clause",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"],
+      "env": {
+        "OBSIDIAN_VAULT": "${user_config.vault_name}",
+        "OBSIDIAN_BIN": "${user_config.obsidian_bin}"
+      }
+    }
+  },
+  "user_config": {
+    "vault_name": {
+      "type": "string",
+      "title": "Default vault name",
+      "description": "Vault targeted when a command doesn't specify one (appended as vault=<name>). Leave empty to always specify the vault per command.",
+      "required": false,
+      "default": ""
+    },
+    "obsidian_bin": {
+      "type": "string",
+      "title": "Obsidian CLI path",
+      "description": "Path to the obsidian CLI binary installed by the app. macOS default: /usr/local/bin/obsidian. Linux: ~/.local/bin/obsidian. Windows: Obsidian.com next to Obsidian.exe.",
+      "required": false,
+      "default": "/usr/local/bin/obsidian"
+    }
+  },
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18"
+    }
+  }
+}
